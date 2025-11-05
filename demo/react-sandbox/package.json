@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@b4m-tech/widget-funnel": "github:B4M-TECH/B4MFunnelReact#v0.1.1",
+    "@b4m-tech/widget-funnel": "github:B4M-TECH/B4MFunnelReact#v0.1.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
