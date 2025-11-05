@@ -1,0 +1,64 @@
+{
+  "name": "@b4m-tech/widget-funnel",
+  "version": "0.1.1",
+  "description": "Embeddable Base For Music funnel widget for vanilla JavaScript and React.",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs",
+      "default": "./dist/react.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "postbuild": "mkdir -p docs && cp dist/baseformusic-widget.umd.js docs/baseformusic-widget.umd.js && cp dist/baseformusic-widget.umd.js docs/baseformusic-widget.$npm_package_version.umd.js",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "b4m",
+    "funnel",
+    "widget",
+    "iframe",
+    "react"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/B4M-TECH/B4MFunnelReact.git"
+  },
+  "bugs": {
+    "url": "https://github.com/B4M-TECH/B4MFunnelReact/issues"
+  },
+  "homepage": "https://github.com/B4M-TECH/B4MFunnelReact#readme",
+  "author": "Base For Music",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17"
+  },
+  "dependencies": {
+    "playwright": "^1.56.1"
+  }
+}
