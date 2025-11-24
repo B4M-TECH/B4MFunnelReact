@@ -63,7 +63,6 @@ type ScriptConfig = Partial<WidgetMountOptions> & {
   partnerId?: string;
   targetId?: string;
   email?: string;
-  artistSpotifyId?: string;
 };
 
 const parseScriptConfig = (script: HTMLScriptElement | null): ScriptConfig => {
@@ -98,13 +97,6 @@ const parseScriptConfig = (script: HTMLScriptElement | null): ScriptConfig => {
   const email = normalizeParam(
     params?.get("email") ?? dataset.email ?? dataset.b4mEmail
   );
-  const artistSpotifyId = normalizeParam(
-    params?.get("artistSpotifyId") ??
-      dataset.artistSpotifyId ??
-      (dataset as Record<string, string | undefined>)["artist-spotify-id"] ??
-      (dataset as Record<string, string | undefined>)["b4mArtistSpotifyId"] ??
-      (dataset as Record<string, string | undefined>)["b4m-artist-spotify-id"]
-  );
   const sidebar = normalizeSidebar(
     params?.get("sidebar") ??
       dataset.sidebar ??
@@ -127,7 +119,6 @@ const parseScriptConfig = (script: HTMLScriptElement | null): ScriptConfig => {
     allow: allow ?? undefined,
     minHeight: minHeight ?? undefined,
     email: email ?? undefined,
-    artistSpotifyId: artistSpotifyId ?? undefined,
     sidebar: sidebar ?? undefined,
     targetId: targetId ?? undefined,
   };
@@ -232,12 +223,6 @@ export const autoInit = () => {
     target.getAttribute("data-email") ??
     scriptConfig.email ??
     undefined;
-  const artistSpotifyId =
-    (target as HTMLElement).dataset.artistSpotifyId ??
-    target.getAttribute("data-artist-spotify-id") ??
-    target.getAttribute("data-b4m-artist-spotify-id") ??
-    scriptConfig.artistSpotifyId ??
-    undefined;
   const sidebar =
     normalizeSidebar((target as HTMLElement).dataset.sidebar) ??
     normalizeSidebar(target.getAttribute("data-sidebar")) ??
@@ -252,7 +237,6 @@ export const autoInit = () => {
     allow,
     minHeight,
     email,
-    artistSpotifyId,
     sidebar,
   });
 };

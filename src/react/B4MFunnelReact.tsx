@@ -16,7 +16,6 @@ export const B4MFunnelReact = ({
   allow,
   minHeight,
   email,
-  artistSpotifyId,
   sidebar,
   className,
   style,
@@ -41,23 +40,13 @@ export const B4MFunnelReact = ({
       allow,
       minHeight,
       email,
-      artistSpotifyId,
       sidebar,
     });
 
     return () => {
       widgetRef.current?.unmount();
     };
-  }, [
-    partnerId,
-    locale,
-    srcBase,
-    allow,
-    minHeight,
-    email,
-    artistSpotifyId,
-    sidebar,
-  ]);
+  }, [partnerId, locale, srcBase, allow, minHeight, email, sidebar]);
 
   return <div ref={containerRef} className={className} style={style} />;
 };

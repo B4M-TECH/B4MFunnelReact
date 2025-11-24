@@ -20,7 +20,7 @@ The funnel supports 5 languages: `en`, `fr`, `de`, `es`, `pt`. Any other value f
 
 You can provide parameters in three ways:
 
-- Script query string: `<script src="...baseformusic-widget.umd.js?partnerId=...&locale=fr&email=john@doe.com">`
+- Script query string: `<script src="...baseformusic-widget.umd.js...&locale=fr&email=john@doe.com">`
 - Data attributes on the mount container: `data-partner-id`, `data-locale`, `data-email`, `data-min-height`, `data-allow`, `data-src-base`
 - Programmatic API: `window.B4MFunnel.mount(target, options)` or `<B4MFunnelReact ... />`
 
@@ -29,7 +29,6 @@ Parameters list:
 - partnerId (required): your partner identifier.
 - locale (optional): UI language. Supported: `en`, `fr`, `de`, `es`, `pt`. Defaults to `en` if omitted or invalid.
 - email (optional): pre-fill contact email for the funnel.
-- artistSpotifyId (optional): pre-select or associate a Spotify artist context within the funnel.
 - sidebar (optional): layout orientation of the sidebar. Accepted values: `horizontal`, `vertical`. Default: `vertical`.
 - minHeight (optional): minimum height for the iframe container (e.g. `900px`, `720px`, or a number like `900`). Defaults to `900px`. Do not set less than `900px` — security default is `900px`.
 - allow (optional): iframe `allow` permissions string. Defaults to `payment *; clipboard-read *; clipboard-write *; fullscreen *; autoplay; encrypted-media`.
@@ -42,7 +41,7 @@ If you embed the funnel directly as an iframe (without the loader), you can pass
 
 ```html
 <iframe
-  src="https://funnel.baseformusic.com/en/avWXB?email=artist@example.com&artistSpotifyId=1vCWHaC5f2uS3yhpwWbIA6"
+  src="https://funnel.baseformusic.com/en/avWXB?email=artist@example.com"
   style="width: 100%; height: 900px; border: none"
 ></iframe>
 ```
@@ -51,7 +50,7 @@ Alternatively, if your integration prefers query-based locale/partner selection,
 
 ```html
 <iframe
-  src="https://funnel.baseformusic.com/?partnerId=avWXB&locale=fr&email=artist@example.com&artistSpotifyId=1vCWHaC5f2uS3yhpwWbIA6"
+  src="https://funnel.baseformusic.com/en/avWXB?email=artist@example.com"
   style="width: 100%; height: 900px; border: none"
 ></iframe>
 ```
@@ -85,7 +84,6 @@ We publish the UMD bundle on GitHub Pages, so you can load it directly:
   data-locale="en"
   data-email="artist@example.com"
   data-sidebar="horizontal"
-  data-artist-spotify-id="1vCWHaC5f2uS3yhpwWbIA6"
 ></div>
 <script src="https://b4m-tech.github.io/B4MFunnelReact/baseformusic-widget.umd.js"></script>
 ```
@@ -99,7 +97,7 @@ To pin a specific release, use the versioned filename our pipeline generates (re
 You can also mount without a pre-existing container by passing parameters on the script URL (creates a container after the script):
 
 ```html
-<script src="https://b4m-tech.github.io/B4MFunnelReact/baseformusic-widget.umd.js?partnerId=avWXB&locale=fr&email=artist@example.com&artistSpotifyId=1vCWHaC5f2uS3yhpwWbIA6&sidebar=horizontal&minHeight=720px"></script>
+<script src="https://b4m-tech.github.io/B4MFunnelReact/baseformusic-widget.umd.jsavWXB&locale=fr&email=artist@example.com&sidebar=horizontal&minHeight=720px"></script>
 ```
 
 ### React
@@ -113,7 +111,6 @@ export function Demo() {
       partnerId="avWXB"
       locale="en"
       email="artist@example.com"
-      artistSpotifyId="1vCWHaC5f2uS3yhpwWbIA6"
       sidebar="horizontal"
       minHeight="900px"
     />
@@ -130,7 +127,6 @@ export function Demo() {
     partnerId: 'avWXB',
     locale: 'en',
     email: 'artist@example.com',
-    artistSpotifyId: '1vCWHaC5f2uS3yhpwWbIA6',
     sidebar: 'horizontal',
     minHeight: '900px'
   });

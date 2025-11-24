@@ -9,14 +9,19 @@ var B4MFunnel = (() => {
       __defProp(target, name, { get: all[name], enumerable: true });
   };
   var __copyProps = (to, from, except, desc) => {
-    if (from && typeof from === "object" || typeof from === "function") {
+    if ((from && typeof from === "object") || typeof from === "function") {
       for (let key of __getOwnPropNames(from))
         if (!__hasOwnProp.call(to, key) && key !== except)
-          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+          __defProp(to, key, {
+            get: () => from[key],
+            enumerable:
+              !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
+          });
     }
     return to;
   };
-  var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+  var __toCommonJS = (mod) =>
+    __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
   // src/index.ts
   var src_exports = {};
@@ -25,15 +30,16 @@ var B4MFunnel = (() => {
     autoInit: () => autoInit,
     default: () => src_default,
     mount: () => mount,
-    unmount: () => unmount
+    unmount: () => unmount,
   });
 
   // src/core/B4MFunnel.ts
   var DEFAULTS = {
     locale: "en",
     srcBase: "https://funnel.baseformusic.com",
-    allow: "payment *; clipboard-read *; clipboard-write *; fullscreen *; autoplay; encrypted-media",
-    minHeight: "900px"
+    allow:
+      "payment *; clipboard-read *; clipboard-write *; fullscreen *; autoplay; encrypted-media",
+    minHeight: "900px",
   };
   var SUPPORTED_LOCALES = ["en", "fr", "de", "es", "pt"];
   var DEFAULT_SIDEBAR = "vertical";
@@ -47,13 +53,19 @@ var B4MFunnel = (() => {
       const minHeight = this.normalizeMinHeight(options.minHeight);
       const merged = {
         partnerId: options.partnerId,
-        locale: (_a = this.normalizeLocale(options.locale)) != null ? _a : DEFAULTS.locale,
+        locale:
+          (_a = this.normalizeLocale(options.locale)) != null
+            ? _a
+            : DEFAULTS.locale,
         srcBase: (_b = options.srcBase) != null ? _b : DEFAULTS.srcBase,
         allow: (_c = options.allow) != null ? _c : DEFAULTS.allow,
         minHeight,
         email: options.email,
-        artistSpotifyId: options.artistSpotifyId,
-        sidebar: (_d = this.normalizeSidebar(options.sidebar)) != null ? _d : DEFAULT_SIDEBAR
+
+        sidebar:
+          (_d = this.normalizeSidebar(options.sidebar)) != null
+            ? _d
+            : DEFAULT_SIDEBAR,
       };
       if (!merged.partnerId) {
         throw new Error("B4MFunnel: partnerId is required.");
@@ -66,14 +78,13 @@ var B4MFunnel = (() => {
         minHeight: container.style.minHeight,
         width: container.style.width,
         maxWidth: container.style.maxWidth,
-        margin: container.style.margin
+        margin: container.style.margin,
       };
       const srcUrl = this.buildSrcUrl(merged.srcBase, {
         partnerId: merged.partnerId,
         locale: merged.locale,
         email: merged.email,
-        artistSpotifyId: merged.artistSpotifyId,
-        sidebar: merged.sidebar
+        sidebar: merged.sidebar,
       });
       container.innerHTML = "";
       container.style.minHeight = merged.minHeight;
@@ -90,7 +101,9 @@ var B4MFunnel = (() => {
       const origin = `${srcUrl.protocol}//${srcUrl.host}`;
       iframe.onload = () => {
         var _a2;
-        (_a2 = iframe.contentWindow) == null ? void 0 : _a2.postMessage({ type: "getHeight" }, origin);
+        (_a2 = iframe.contentWindow) == null
+          ? void 0
+          : _a2.postMessage({ type: "getHeight" }, origin);
       };
       const widgetState = {
         container,
@@ -98,7 +111,7 @@ var B4MFunnel = (() => {
         origin,
         messageHandler: () => void 0,
         resizeHandler: () => void 0,
-        containerStyleSnapshot
+        containerStyleSnapshot,
       };
       const messageHandler = (event) => {
         if (event.origin !== origin) {
@@ -124,7 +137,9 @@ var B4MFunnel = (() => {
         }
         widgetState.resizeTimer = window.setTimeout(() => {
           var _a2;
-          (_a2 = iframe.contentWindow) == null ? void 0 : _a2.postMessage({ type: "getHeight" }, origin);
+          (_a2 = iframe.contentWindow) == null
+            ? void 0
+            : _a2.postMessage({ type: "getHeight" }, origin);
           widgetState.resizeTimer = void 0;
         }, 150);
       };
@@ -144,7 +159,7 @@ var B4MFunnel = (() => {
         messageHandler,
         resizeHandler,
         resizeTimer,
-        containerStyleSnapshot
+        containerStyleSnapshot,
       } = this.state;
       window.removeEventListener("message", messageHandler);
       window.removeEventListener("resize", resizeHandler);
@@ -177,9 +192,6 @@ var B4MFunnel = (() => {
       if (params.email) {
         url.searchParams.set("email", params.email);
       }
-      if (params.artistSpotifyId) {
-        url.searchParams.set("artistSpotifyId", params.artistSpotifyId);
-      }
       if (params.sidebar) {
         url.searchParams.set("sidebar", params.sidebar);
       }
@@ -189,7 +201,11 @@ var B4MFunnel = (() => {
       if (typeof data.height === "number") {
         return data.height;
       }
-      if (data.payload && typeof data.payload === "object" && typeof data.payload.height === "number") {
+      if (
+        data.payload &&
+        typeof data.payload === "object" &&
+        typeof data.payload.height === "number"
+      ) {
         return data.payload.height;
       }
       return void 0;
@@ -245,9 +261,7 @@ var B4MFunnel = (() => {
     if (isLoaderScript(current)) {
       return current;
     }
-    const scripts = Array.from(
-      document.getElementsByTagName("script")
-    );
+    const scripts = Array.from(document.getElementsByTagName("script"));
     return (_a = scripts.find(isLoaderScript)) != null ? _a : null;
   };
   var loaderScript = findLoaderScript();
@@ -264,13 +278,38 @@ var B4MFunnel = (() => {
     return lc === "horizontal" || lc === "vertical" ? lc : void 0;
   };
   var parseScriptConfig = (script) => {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u;
+    var _a,
+      _b,
+      _c,
+      _d,
+      _e,
+      _f,
+      _g,
+      _h,
+      _i,
+      _j,
+      _k,
+      _l,
+      _m,
+      _n,
+      _o,
+      _p,
+      _q,
+      _r,
+      _s,
+      _t,
+      _u;
     if (!script || !isDomAvailable) {
       return {};
     }
     let params;
     try {
-      const base = (_a = document.baseURI) != null ? _a : typeof window !== "undefined" ? window.location.href : void 0;
+      const base =
+        (_a = document.baseURI) != null
+          ? _a
+          : typeof window !== "undefined"
+          ? window.location.href
+          : void 0;
       if (base) {
         params = new URL(script.src, base).searchParams;
       }
@@ -279,25 +318,74 @@ var B4MFunnel = (() => {
     }
     const dataset = script.dataset;
     const partnerId = normalizeParam(
-      (_b = params == null ? void 0 : params.get("partnerId")) != null ? _b : dataset.partnerId
+      (_b = params == null ? void 0 : params.get("partnerId")) != null
+        ? _b
+        : dataset.partnerId
     );
-    const locale = normalizeParam((_c = params == null ? void 0 : params.get("locale")) != null ? _c : dataset.locale);
-    const srcBase = normalizeParam((_d = params == null ? void 0 : params.get("srcBase")) != null ? _d : dataset.srcBase);
-    const allow = normalizeParam((_e = params == null ? void 0 : params.get("allow")) != null ? _e : dataset.allow);
+    const locale = normalizeParam(
+      (_c = params == null ? void 0 : params.get("locale")) != null
+        ? _c
+        : dataset.locale
+    );
+    const srcBase = normalizeParam(
+      (_d = params == null ? void 0 : params.get("srcBase")) != null
+        ? _d
+        : dataset.srcBase
+    );
+    const allow = normalizeParam(
+      (_e = params == null ? void 0 : params.get("allow")) != null
+        ? _e
+        : dataset.allow
+    );
     const minHeight = normalizeParam(
-      (_g = (_f = params == null ? void 0 : params.get("minHeight")) != null ? _f : params == null ? void 0 : params.get("min-height")) != null ? _g : dataset.minHeight
+      (_g =
+        (_f = params == null ? void 0 : params.get("minHeight")) != null
+          ? _f
+          : params == null
+          ? void 0
+          : params.get("min-height")) != null
+        ? _g
+        : dataset.minHeight
     );
     const email = normalizeParam(
-      (_i = (_h = params == null ? void 0 : params.get("email")) != null ? _h : dataset.email) != null ? _i : dataset.b4mEmail
-    );
-    const artistSpotifyId = normalizeParam(
-      (_m = (_l = (_k = (_j = params == null ? void 0 : params.get("artistSpotifyId")) != null ? _j : dataset.artistSpotifyId) != null ? _k : dataset["artist-spotify-id"]) != null ? _l : dataset["b4mArtistSpotifyId"]) != null ? _m : dataset["b4m-artist-spotify-id"]
+      (_i =
+        (_h = params == null ? void 0 : params.get("email")) != null
+          ? _h
+          : dataset.email) != null
+        ? _i
+        : dataset.b4mEmail
     );
     const sidebar = normalizeSidebar(
-      (_p = (_o = (_n = params == null ? void 0 : params.get("sidebar")) != null ? _n : dataset.sidebar) != null ? _o : dataset["b4mSidebar"]) != null ? _p : dataset["b4m-sidebar"]
+      (_p =
+        (_o =
+          (_n = params == null ? void 0 : params.get("sidebar")) != null
+            ? _n
+            : dataset.sidebar) != null
+          ? _o
+          : dataset["b4mSidebar"]) != null
+        ? _p
+        : dataset["b4m-sidebar"]
     );
     const targetId = normalizeParam(
-      (_u = (_t = (_s = (_r = (_q = params == null ? void 0 : params.get("targetId")) != null ? _q : params == null ? void 0 : params.get("target")) != null ? _r : params == null ? void 0 : params.get("container")) != null ? _s : dataset.targetId) != null ? _t : dataset.target) != null ? _u : dataset.container
+      (_u =
+        (_t =
+          (_s =
+            (_r =
+              (_q = params == null ? void 0 : params.get("targetId")) != null
+                ? _q
+                : params == null
+                ? void 0
+                : params.get("target")) != null
+              ? _r
+              : params == null
+              ? void 0
+              : params.get("container")) != null
+            ? _s
+            : dataset.targetId) != null
+          ? _t
+          : dataset.target) != null
+        ? _u
+        : dataset.container
     );
     return {
       partnerId: partnerId != null ? partnerId : void 0,
@@ -306,9 +394,8 @@ var B4MFunnel = (() => {
       allow: allow != null ? allow : void 0,
       minHeight: minHeight != null ? minHeight : void 0,
       email: email != null ? email : void 0,
-      artistSpotifyId: artistSpotifyId != null ? artistSpotifyId : void 0,
       sidebar: sidebar != null ? sidebar : void 0,
-      targetId: targetId != null ? targetId : void 0
+      targetId: targetId != null ? targetId : void 0,
     };
   };
   var scriptConfig = parseScriptConfig(loaderScript);
@@ -316,7 +403,10 @@ var B4MFunnel = (() => {
     if (!isDomAvailable) {
       return null;
     }
-    const fallbackId = preferredId && preferredId.trim().length > 0 ? preferredId.trim() : "b4m-widget-funnel";
+    const fallbackId =
+      preferredId && preferredId.trim().length > 0
+        ? preferredId.trim()
+        : "b4m-widget-funnel";
     const existing = document.getElementById(fallbackId);
     if (existing) {
       return existing;
@@ -339,11 +429,48 @@ var B4MFunnel = (() => {
     widgetSingleton.unmount();
   };
   var autoInit = () => {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C;
+    var _a,
+      _b,
+      _c,
+      _d,
+      _e,
+      _f,
+      _g,
+      _h,
+      _i,
+      _j,
+      _k,
+      _l,
+      _m,
+      _n,
+      _o,
+      _p,
+      _q,
+      _r,
+      _s,
+      _t,
+      _u,
+      _v,
+      _w,
+      _x,
+      _y,
+      _z,
+      _A,
+      _B,
+      _C;
     if (typeof document === "undefined") {
       return;
     }
-    let target = (_c = (_b = (_a = document.getElementById("b4m-widget-funnel")) != null ? _a : document.querySelector("[data-b4m-widget-funnel]")) != null ? _b : document.getElementById("base-for-music-widget")) != null ? _c : document.querySelector("[data-base-for-music-widget]");
+    let target =
+      (_c =
+        (_b =
+          (_a = document.getElementById("b4m-widget-funnel")) != null
+            ? _a
+            : document.querySelector("[data-b4m-widget-funnel]")) != null
+          ? _b
+          : document.getElementById("base-for-music-widget")) != null
+        ? _c
+        : document.querySelector("[data-base-for-music-widget]");
     if (!target && scriptConfig.targetId) {
       target = document.getElementById(scriptConfig.targetId);
     }
@@ -353,17 +480,82 @@ var B4MFunnel = (() => {
     if (!target) {
       return;
     }
-    const partnerId = (_f = (_e = (_d = target.dataset.partnerId) != null ? _d : target.getAttribute("data-partner-id")) != null ? _e : scriptConfig.partnerId) != null ? _f : void 0;
+    const partnerId =
+      (_f =
+        (_e =
+          (_d = target.dataset.partnerId) != null
+            ? _d
+            : target.getAttribute("data-partner-id")) != null
+          ? _e
+          : scriptConfig.partnerId) != null
+        ? _f
+        : void 0;
     if (!partnerId) {
       return;
     }
-    const locale = (_i = (_h = (_g = target.dataset.locale) != null ? _g : target.getAttribute("data-locale")) != null ? _h : scriptConfig.locale) != null ? _i : void 0;
-    const srcBase = (_l = (_k = (_j = target.dataset.srcBase) != null ? _j : target.getAttribute("data-src-base")) != null ? _k : scriptConfig.srcBase) != null ? _l : void 0;
-    const allow = (_o = (_n = (_m = target.dataset.allow) != null ? _m : target.getAttribute("data-allow")) != null ? _n : scriptConfig.allow) != null ? _o : void 0;
-    const minHeight = (_r = (_q = (_p = target.dataset.minHeight) != null ? _p : target.getAttribute("data-min-height")) != null ? _q : scriptConfig.minHeight) != null ? _r : void 0;
-    const email = (_u = (_t = (_s = target.dataset.email) != null ? _s : target.getAttribute("data-email")) != null ? _t : scriptConfig.email) != null ? _u : void 0;
-    const artistSpotifyId = (_y = (_x = (_w = (_v = target.dataset.artistSpotifyId) != null ? _v : target.getAttribute("data-artist-spotify-id")) != null ? _w : target.getAttribute("data-b4m-artist-spotify-id")) != null ? _x : scriptConfig.artistSpotifyId) != null ? _y : void 0;
-    const sidebar = (_C = (_B = (_A = (_z = normalizeSidebar(target.dataset.sidebar)) != null ? _z : normalizeSidebar(target.getAttribute("data-sidebar"))) != null ? _A : normalizeSidebar(target.getAttribute("data-b4m-sidebar"))) != null ? _B : scriptConfig.sidebar) != null ? _C : void 0;
+    const locale =
+      (_i =
+        (_h =
+          (_g = target.dataset.locale) != null
+            ? _g
+            : target.getAttribute("data-locale")) != null
+          ? _h
+          : scriptConfig.locale) != null
+        ? _i
+        : void 0;
+    const srcBase =
+      (_l =
+        (_k =
+          (_j = target.dataset.srcBase) != null
+            ? _j
+            : target.getAttribute("data-src-base")) != null
+          ? _k
+          : scriptConfig.srcBase) != null
+        ? _l
+        : void 0;
+    const allow =
+      (_o =
+        (_n =
+          (_m = target.dataset.allow) != null
+            ? _m
+            : target.getAttribute("data-allow")) != null
+          ? _n
+          : scriptConfig.allow) != null
+        ? _o
+        : void 0;
+    const minHeight =
+      (_r =
+        (_q =
+          (_p = target.dataset.minHeight) != null
+            ? _p
+            : target.getAttribute("data-min-height")) != null
+          ? _q
+          : scriptConfig.minHeight) != null
+        ? _r
+        : void 0;
+    const email =
+      (_u =
+        (_t =
+          (_s = target.dataset.email) != null
+            ? _s
+            : target.getAttribute("data-email")) != null
+          ? _t
+          : scriptConfig.email) != null
+        ? _u
+        : void 0;
+    const sidebar =
+      (_C =
+        (_B =
+          (_A =
+            (_z = normalizeSidebar(target.dataset.sidebar)) != null
+              ? _z
+              : normalizeSidebar(target.getAttribute("data-sidebar"))) != null
+            ? _A
+            : normalizeSidebar(target.getAttribute("data-b4m-sidebar"))) != null
+          ? _B
+          : scriptConfig.sidebar) != null
+        ? _C
+        : void 0;
     widgetSingleton.mount(target, {
       partnerId,
       locale,
@@ -371,8 +563,7 @@ var B4MFunnel = (() => {
       allow,
       minHeight,
       email,
-      artistSpotifyId,
-      sidebar
+      sidebar,
     });
   };
   var immediateInit = () => {
@@ -388,7 +579,7 @@ var B4MFunnel = (() => {
   if (typeof window !== "undefined") {
     window.B4MFunnel = {
       mount,
-      unmount
+      unmount,
     };
   }
   immediateInit();

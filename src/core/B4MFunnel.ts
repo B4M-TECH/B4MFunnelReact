@@ -5,7 +5,6 @@ export interface WidgetMountOptions {
   allow?: string;
   minHeight?: string;
   email?: string;
-  artistSpotifyId?: string;
   sidebar?: "horizontal" | "vertical";
 }
 
@@ -29,10 +28,7 @@ interface WidgetState {
 }
 
 const DEFAULTS: Required<
-  Omit<
-    WidgetMountOptions,
-    "partnerId" | "email" | "artistSpotifyId" | "sidebar"
-  >
+  Omit<WidgetMountOptions, "partnerId" | "email" | "sidebar">
 > = {
   locale: "en",
   srcBase: "https://funnel.baseformusic.com",
@@ -64,7 +60,7 @@ export class B4MFunnel {
       allow: options.allow ?? DEFAULTS.allow,
       minHeight,
       email: options.email,
-      artistSpotifyId: options.artistSpotifyId,
+
       sidebar: this.normalizeSidebar(options.sidebar) ?? DEFAULT_SIDEBAR,
     };
 
@@ -88,7 +84,7 @@ export class B4MFunnel {
       partnerId: merged.partnerId,
       locale: merged.locale,
       email: merged.email,
-      artistSpotifyId: merged.artistSpotifyId,
+
       sidebar: merged.sidebar,
     });
 
@@ -207,20 +203,18 @@ export class B4MFunnel {
       partnerId: string;
       locale?: string;
       email?: string;
-      artistSpotifyId?: string;
       sidebar?: "horizontal" | "vertical";
     }
   ): URL {
     const url = new URL(base);
-    url.searchParams.set("partnerId", params.partnerId);
-    if (params.locale) {
-      url.searchParams.set("locale", params.locale);
-    }
+    // Build path-style URL: /{locale}/{partnerId}
+    const basePath = url.pathname.replace(/\/+$/, "");
+    const locale = (params.locale || DEFAULTS.locale).toString();
+    url.pathname = `${basePath}/${locale}/${params.partnerId}`;
+
+    // Keep additional options as query params
     if (params.email) {
       url.searchParams.set("email", params.email);
-    }
-    if (params.artistSpotifyId) {
-      url.searchParams.set("artistSpotifyId", params.artistSpotifyId);
     }
     if (params.sidebar) {
       url.searchParams.set("sidebar", params.sidebar);
