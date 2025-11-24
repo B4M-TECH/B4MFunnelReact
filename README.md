@@ -2,6 +2,8 @@
 
 Embeddable widget SDK maintained by Base For Music. It provides a browser-ready bundle with auto-init support and a React wrapper so partners can drop the funnel in any project.
 
+![Direct funnel iframe embed overview](./funnel-direct.png)
+
 ## Table of contents
 
 - [Parameters](#parameters)
@@ -15,6 +17,7 @@ Embeddable widget SDK maintained by Base For Music. It provides a browser-ready 
 - [Release workflow](#release-workflow)
 
 ## Parameters
+
 
 The funnel supports 5 languages: `en`, `fr`, `de`, `es`, `pt`. Any other value falls back to `en`.
 
@@ -85,25 +88,33 @@ We publish the UMD bundle on GitHub Pages, so you can load it directly:
   data-email="artist@example.com"
   data-sidebar="horizontal"
 ></div>
+<!-- GitHub Pages (current latest) -->
 <script src="https://b4m-tech.github.io/B4MFunnelReact/baseformusic-widget.umd.js"></script>
+<!-- jsDelivr CDN (pinned) -->
+<script src="https://cdn.jsdelivr.net/npm/b4m-widget-funnel@0.1.2/dist/baseformusic-widget.umd.js"></script>
+<!-- UNPKG CDN (latest) -->
+<script src="https://unpkg.com/b4m-widget-funnel/dist/baseformusic-widget.umd.js"></script>
 ```
 
 To pin a specific release, use the versioned filename our pipeline generates (replace `0.1.0` with the relevant tag):
 
 ```html
-<script src="https://b4m-tech.github.io/B4MFunnelReact/baseformusic-widget.0.1.0.umd.js"></script>
+<!-- Versioned GitHub Pages artifact -->
+<script src="https://b4m-tech.github.io/B4MFunnelReact/baseformusic-widget.0.1.2.umd.js"></script>
+<!-- Equivalent jsDelivr pin -->
+<script src="https://cdn.jsdelivr.net/npm/b4m-widget-funnel@0.1.2/dist/baseformusic-widget.umd.js"></script>
 ```
 
 You can also mount without a pre-existing container by passing parameters on the script URL (creates a container after the script):
 
 ```html
-<script src="https://b4m-tech.github.io/B4MFunnelReact/baseformusic-widget.umd.jsavWXB&locale=fr&email=artist@example.com&sidebar=horizontal&minHeight=720px"></script>
+<script src="https://cdn.jsdelivr.net/npm/b4m-widget-funnel@0.1.2/dist/baseformusic-widget.umd.js?partnerId=avWXB&locale=fr&email=artist@example.com&sidebar=horizontal&minHeight=900px"></script>
 ```
 
 ### React
 
 ```tsx
-import { B4MFunnelReact } from '@b4m-tech/widget-funnel/react';
+import { B4MFunnelReact } from 'b4m-widget-funnel/react';
 
 export function Demo() {
   return (
@@ -136,13 +147,19 @@ export function Demo() {
 
 ## Installation
 
-Install straight from the GitHub repository (requires access to the private repo):
+Install from npm (recommended):
 
 ```bash
-npm install git+https://github.com/B4M-TECH/B4MFunnelReact.git#v0.1.0
+npm install b4m-widget-funnel
 ```
 
-> The package name is `@b4m-tech/widget-funnel`. Update the tag (`v0.1.0`) to consume newer releases.
+Or straight from the GitHub repository (falls back to building from source):
+
+```bash
+npm install git+https://github.com/B4M-TECH/B4MFunnelReact.git#v0.1.2
+```
+
+> The package name is now `b4m-widget-funnel` (unscoped). Update the tag (`v0.1.2` or later) if installing from Git.
 
 ## Development
 
@@ -155,7 +172,7 @@ npm install git+https://github.com/B4M-TECH/B4MFunnelReact.git#v0.1.0
 1. Update `CHANGELOG.md` (when available) and bump the version in `package.json`.
 2. Run `npm run clean && npm run build` to refresh `dist/`.
 3. Commit your changes and push to `main`.
-4. Create a tag, e.g. `git tag v0.1.0 && git push origin v0.1.0`.
-5. Publish a GitHub release attaching the generated `dist/baseformusic-widget.umd.js` (or the versioned file in `docs/`) if you want a downloadable bundle.
+4. Create a tag, e.g. `git tag v0.1.2 && git push origin v0.1.2`.
+5. (Optional) Publish a GitHub release attaching the generated `docs/baseformusic-widget.0.1.2.umd.js` if you want a downloadable bundle.
 
-Consumers can then run `npm install git+https://github.com/B4M-TECH/B4MFunnelReact.git#v0.1.0` to pull that release.
+Consumers can then run `npm install b4m-widget-funnel@0.1.2` or pin a Git commit/tag via `npm install git+https://github.com/B4M-TECH/B4MFunnelReact.git#v0.1.2`.

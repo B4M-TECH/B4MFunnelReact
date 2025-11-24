@@ -1,6 +1,6 @@
 {
-  "name": "@b4m-tech/widget-funnel",
-  "version": "0.1.1",
+  "name": "b4m-widget-funnel",
+  "version": "0.1.2",
   "description": "Embeddable Base For Music funnel widget for vanilla JavaScript and React.",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -26,7 +26,8 @@
   "scripts": {
     "build": "tsup",
     "postbuild": "mkdir -p docs && cp dist/baseformusic-widget.umd.js docs/baseformusic-widget.umd.js && cp dist/baseformusic-widget.umd.js docs/baseformusic-widget.$npm_package_version.umd.js",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "release:minor": "bash scripts/release-minor.sh"
   },
   "keywords": [
     "b4m",
