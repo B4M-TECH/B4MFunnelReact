@@ -1,5 +1,5 @@
 # B4M Funnel React Sandbox
-Small Vite application used to exercise the `@b4m-tech/widget-funnel/react` component in isolation. Helpful for validating changes to the core widget without touching a host project.
+Small Vite application used to exercise the `b4m-widget-funnel/react` component in isolation. Helpful for validating changes to the core widget without touching a host project.
 ## Prerequisites
 - Node.js 18+ (or any version supported by Vite)
 - npm **or** Yarn
@@ -22,4 +22,4 @@ npm run build   # or: yarn build   -> Type-checks then builds a production bundl
 npm run preview # or: yarn preview -> Serves the production build locally
 ```
 ## Using a local widget build
-While developing the widget itself, rebuild the root package (`npm run build` at repo root). The sandbox depends on the GitHub version by default; to point it at your local build, temporarily replace the dependency in `package.json` with `file:../../` and reinstall.
+While developing the widget itself, rebuild the root package (`npm run build` at repo root). The sandbox now consumes the published npm package; to point it at your local build, temporarily replace the dependency in `package.json` with `file:../../` and reinstall. To return to npm: `npm install b4m-widget-funnel@latest`.

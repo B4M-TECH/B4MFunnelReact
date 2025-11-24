@@ -1,4 +1,4 @@
-import { B4MFunnelReact } from "@b4m-tech/widget-funnel/react";
+import { B4MFunnelReact } from "b4m-widget-funnel/react";
 import { useState } from "react";
 
 function App() {
