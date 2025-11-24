@@ -645,10 +645,10 @@ argparse@^2.0.1:
   resolved "https://registry.yarnpkg.com/argparse/-/argparse-2.0.1.tgz#246f50f3ca78a3240f6c997e8a9bd1eac49e4b38"
   integrity sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
 
-b4m-widget-funnel@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/b4m-widget-funnel/-/b4m-widget-funnel-0.1.2.tgz#43318c0ab8db2bdaec4ae19d2c33d0e89857b09d"
-  integrity sha512-20qwzjjFABgkYJmjZMAE/50ONFXL87SapXChcfHDpt0BCUGB1GQ0jrHxu1omeM1qmZCNPhK85P/oYLkzAnhbxw==
+b4m-widget-funnel@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/b4m-widget-funnel/-/b4m-widget-funnel-0.2.0.tgz#dd549fd64a80102c9a24cbdb7f4904d16a58f326"
+  integrity sha512-LYqJ4NQSqgKMtm0I0LMjxFM6sZI/O5YbrXaxZrT5XdWT5/z7sJrrA1vp2FLXBgY6HvyZvX/SeaF85YKLdcpSGw==
   dependencies:
     playwright "^1.56.1"
 
